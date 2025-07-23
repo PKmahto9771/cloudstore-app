@@ -30,7 +30,7 @@ Folder.syncIndexes().then(() => {
 const app = express();
 
 app.use(cors({
-  origin: "*", // Or use your frontend domain instead of '*'
+  origin: "https://cloudstore-app.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true // Allow sending cookies
