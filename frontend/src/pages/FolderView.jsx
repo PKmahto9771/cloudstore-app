@@ -12,35 +12,43 @@ function FolderView() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  useEffect(() => {
-    const url = folderId ? `${API_BASE_URL}/api/folders/${folderId}` : `${API_BASE_URL}/api/folders`;
-    fetch(url, {
-      method: "GET",
-      credentials: "include", // Include cookies for session management
-    }).then(res => {
-        const contentType = res.headers.get('content-type');
-        if (res.ok && contentType && contentType.includes('application/json')) {
-          return res.json();
-        }
-        return res.text().then(text => {
-          if (text.includes('<html') || text.includes('<!DOCTYPE html')) {
-            setError('You may not be logged in, or the backend returned HTML instead of JSON. Please login first.');
-          } else {
-            setError(`Failed to load folders: ${res.status} ${res.statusText} - ${text}`);
-          }
-          throw new Error(text);
-        });
-      })
-      .then(data => {
+useEffect(() => {
+  const fetchFolderData = async () => {
+    const url = folderId
+      ? `${API_BASE_URL}/api/folders/${folderId}`
+      : `${API_BASE_URL}/api/folders`;
+
+    try {
+      const res = await fetch(url, {
+        method: "GET",
+        credentials: "include", // Include cookies for session management
+      });
+
+      const contentType = res.headers.get('content-type');
+
+      if (res.ok && contentType && contentType.includes('application/json')) {
+        const data = await res.json();
         setBreadcrumbs(data.breadcrumbs || []);
         setFolders(data.folders || []);
         setFiles(data.files || []);
-      })
-      .catch(err => {
-        if (!error) setError("Failed to load folders");
-        console.error("FolderView fetch error:", err);
-      });
-  }, [folderId]);
+      } else {
+        const text = await res.text();
+        if (text.includes('<html') || text.includes('<!DOCTYPE html')) {
+          setError('You may not be logged in, or the backend returned HTML instead of JSON. Please login first.');
+        } else {
+          setError(`Failed to load folders: ${res.status} ${res.statusText} - ${text}`);
+        }
+        throw new Error(text);
+      }
+    } catch (err) {
+      if (!error) setError("Failed to load folders");
+      console.error("FolderView fetch error:", err);
+    }
+  };
+
+  fetchFolderData();
+}, [folderId]);
+
 
   return (
     <div className={styles.container}>
