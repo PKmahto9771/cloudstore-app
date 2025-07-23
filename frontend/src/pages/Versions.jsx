@@ -11,31 +11,36 @@ function Versions() {
   const { fileGroupId } = useParams();
 
   // get all the versions of a file
-  useEffect(() => {
-    fetch(`/api/files/versions/${fileGroupId}`)
-      .then(res => {
-        const contentType = res.headers.get('content-type');
-        if (!res.ok) {
-          throw new Error("Failed to fetch versions");
-        }
-        if (contentType && contentType.includes('application/json')) {
-          return res.json();
-        }
-        return res.text().then(text => {
-          if (text.includes('<html') || text.includes('<!DOCTYPE html')) {
-            throw new Error('You may not be logged in, or the backend returned HTML instead of JSON. Please login first.');
-          }
-          throw new Error(text);
-        });
-      })
-      .then(data => {
+useEffect(() => {
+  const fetchVersions = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/files/versions/${fileGroupId}`);
+
+      const contentType = res.headers.get('content-type');
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch versions");
+      }
+
+      if (contentType && contentType.includes('application/json')) {
+        const data = await res.json();
         setVersions(data.versions || data || []);
-      })
-      .catch(err => {
-        setError(err.message || "Failed to load versions");
-        console.error("Versions fetch error:", err);
-      });
-  }, [fileGroupId]);
+      } else {
+        const text = await res.text();
+        if (text.includes('<html') || text.includes('<!DOCTYPE html')) {
+          throw new Error('You may not be logged in, or the backend returned HTML instead of JSON. Please login first.');
+        }
+        throw new Error(text);
+      }
+    } catch (err) {
+      setError(err.message || "Failed to load versions");
+      console.error("Versions fetch error:", err);
+    }
+  };
+
+  fetchVersions();
+}, [fileGroupId]);
+
 
   const [signedUrl, setSignedUrl] = useState("");
   const [shareUrl, setShareUrl] = useState("");
