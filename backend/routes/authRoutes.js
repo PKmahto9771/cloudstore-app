@@ -5,13 +5,13 @@ const USER = require('../models/User')
 
 const router = express.Router();
 
-router.get('/signup', (req, res) => {
-    res.render('signup')
-})
+// router.get('/signup', (req, res) => {
+//     res.render('signup')
+// })
 
-router.get('/login', (req, res) => {
-    res.render('login')
-})
+// router.get('/login', (req, res) => {
+//     res.render('login')
+// })
 
 router.post('/signup', async(req, res)=>{
     const {username, email, password} = req.body;

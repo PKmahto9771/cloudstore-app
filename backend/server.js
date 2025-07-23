@@ -30,8 +30,9 @@ Folder.syncIndexes().then(() => {
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5000', process.env.FRONTEND_URL],  // Your frontend URL
-  credentials: true                  // Allow sending cookies
+  origin: "*", // Or use your frontend domain instead of '*'
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 // app.set('view engine', 'ejs');
