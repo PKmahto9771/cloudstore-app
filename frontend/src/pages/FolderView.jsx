@@ -14,8 +14,10 @@ function FolderView() {
 
   useEffect(() => {
     const url = folderId ? `${API_BASE_URL}/api/folders/${folderId}` : `${API_BASE_URL}/api/folders`;
-    fetch(url)
-      .then(res => {
+    fetch(url, {
+      method: "GET",
+      credentials: "include", // Include cookies for session management
+    }).then(res => {
         const contentType = res.headers.get('content-type');
         if (res.ok && contentType && contentType.includes('application/json')) {
           return res.json();
