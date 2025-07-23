@@ -32,7 +32,8 @@ const app = express();
 app.use(cors({
   origin: "*", // Or use your frontend domain instead of '*'
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true // Allow sending cookies
 }));
 
 // app.set('view engine', 'ejs');
