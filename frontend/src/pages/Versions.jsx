@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Navbar  from "../components/Navbar";
 import { useParams } from "react-router-dom";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function Versions() {
   const [versions, setVersions] = useState([]);
   const [error, setError] = useState("");
@@ -80,7 +82,7 @@ function Versions() {
                 <td style={{ background: '#fff', color: '#111', padding: '0.75em', border: '1px solid #eee' }}>
                   <button onClick={async () => {
                     try {
-                      const res = await fetch(`/api/files/download/${file.storageKey}`);
+                      const res = await fetch(`${API_BASE_URL}/api/files/download/${file.storageKey}`);
                       if (!res.ok) throw new Error('Download failed');
                       const blob = await res.blob();
                       const url = window.URL.createObjectURL(blob);
@@ -102,7 +104,7 @@ function Versions() {
                 <td>
                   <button onClick={async () => {
                     try {
-                      const res = await fetch(`/api/files/${file.storageKey}`, { method: 'DELETE' });
+                      const res = await fetch(`${API_BASE_URL}/api/files/${file.storageKey}`, { method: 'DELETE' });
                       if (!res.ok) throw new Error('Delete failed');
                       setVersions(versions.filter(v => v._id !== file._id));
                       setActionMessage('File deleted.');
@@ -114,7 +116,7 @@ function Versions() {
                 <td>
                   <button onClick={async () => {
                     try {
-                      const res = await fetch(`/api/files/signed-url/${file.storageKey}`);
+                      const res = await fetch(`${API_BASE_URL}/api/files/signed-url/${file.storageKey}`);
                       const data = await res.json();
                       if (!res.ok || !data.signedUrl) throw new Error('Failed to get signed URL');
                       setSignedUrl(data.signedUrl);
@@ -127,7 +129,7 @@ function Versions() {
                 <td>
                   <button onClick={async () => {
                     try {
-                      const res = await fetch(`/api/files/share/${file._id}`, { method: 'POST' });
+                      const res = await fetch(`${API_BASE_URL}/api/files/share/${file._id}`, { method: 'POST' });
                       const data = await res.json();
                       if (!res.ok || !data.shareUrl) throw new Error('Failed to get share link');
                       setShareUrl(data.shareUrl);
@@ -140,7 +142,7 @@ function Versions() {
                 <td>
                   <button onClick={async () => {
                     try {
-                      const res = await fetch(`/api/files/unshare/${file._id}`, { method: 'POST' });
+                      const res = await fetch(`${API_BASE_URL}/api/files/unshare/${file._id}`, { method: 'POST' });
                       if (!res.ok) throw new Error('Failed to revoke share');
                       setActionMessage('Share revoked');
                     } catch (err) {

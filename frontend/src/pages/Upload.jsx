@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function Upload() {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
@@ -18,7 +20,7 @@ function Upload() {
     const formData = new FormData();
     formData.append("file", file);
     try {
-      const res = await fetch("/api/files/upload", {
+      const res = await fetch(`${API_BASE_URL}/api/files/upload`, {
         method: "POST",
         body: formData,
       });

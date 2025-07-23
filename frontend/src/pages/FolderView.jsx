@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import styles from "./FolderView.module.css";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function FolderView() {
   const { folderId } = useParams();
@@ -12,7 +13,7 @@ function FolderView() {
   const [success, setSuccess] = useState("");
 
   useEffect(() => {
-    const url = folderId ? `/api/folders/${folderId}` : "/api/folders";
+    const url = folderId ? `${API_BASE_URL}/api/folders/${folderId}` : `${API_BASE_URL}/api/folders`;
     fetch(url)
       .then(res => {
         const contentType = res.headers.get('content-type');

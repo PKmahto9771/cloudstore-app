@@ -1,6 +1,7 @@
 // components/ProtectedRoute.jsx
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const ProtectedRoute = ({ children }) => {
   const [isAuth, setIsAuth] = useState(null); // null = loading
@@ -8,7 +9,7 @@ const ProtectedRoute = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch(`/api/auth/me`, {
+        const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
             credentials: 'include' // Ensure cookies are sent with the request
         });
         if (res.ok) {

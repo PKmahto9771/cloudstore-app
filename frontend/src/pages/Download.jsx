@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function Download() {
   const [key, setKey] = useState("");
   const [error, setError] = useState("");
@@ -8,7 +10,7 @@ function Download() {
     e.preventDefault();
     setError("");
     try {
-      const res = await fetch(`/api/files/download?key=${encodeURIComponent(key)}`);
+      const res = await fetch(`${API_BASE_URL}/api/files/download?key=${encodeURIComponent(key)}`);
       if (res.ok) {
         const blob = await res.blob();
         const url = window.URL.createObjectURL(blob);
