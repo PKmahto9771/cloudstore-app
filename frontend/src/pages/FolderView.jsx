@@ -116,7 +116,8 @@ function FolderView() {
             try {
               const res = await fetch('/api/files/upload', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                credentials: 'include' // Include cookies for session management
               });
 
               const contentType = res.headers.get('content-type') || '';

@@ -90,16 +90,8 @@ router.post('/logout', (req, res) => {
     return res.status(200).json({message:'User successfully logged out'});
 });
 
-router.get('/me', (req, res) => {
-    const token = req.cookies.uid;
-    if (!token) return res.status(401).json({ message: 'Not authenticated' });
-
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        res.status(200).json({ user: decoded });
-    } catch (err) {
-        res.status(401).json({ message: 'Invalid token' });
-    }
+router.get('/me', checkAuth, (req, res) => {
+  res.status(200).json({ user: req.user });
 });
 
 module.exports = router;
