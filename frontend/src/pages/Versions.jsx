@@ -14,7 +14,10 @@ function Versions() {
 useEffect(() => {
   const fetchVersions = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/files/versions/${fileGroupId}`);
+      const res = await fetch(`${API_BASE_URL}/api/files/versions/${fileGroupId}`, {
+        method: "GET",
+        credentials: "include", // Include cookies for session management
+      });
 
       const contentType = res.headers.get('content-type');
 
