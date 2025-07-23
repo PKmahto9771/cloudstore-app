@@ -6,9 +6,6 @@ const checkAuth = (req, res, next) =>{
     
     if(!token){
         console.warn('⚠️ No authentication token found');
-        if (req.accepts('html')) {
-            return res.redirect('/api/auth/login');
-        }
         return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
     
@@ -25,9 +22,6 @@ const checkAuth = (req, res, next) =>{
             path: req.path,
             hasSecret: !!process.env.JWT_SECRET
         });
-        if (req.accepts('html')) {
-            return res.redirect('/api/auth/login');
-        }
         return res.status(400).json({ message: 'Invalid token.' });
     }
 }

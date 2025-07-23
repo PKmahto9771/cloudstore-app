@@ -112,14 +112,8 @@ router.get('/versions/:fileGroupId', checkAuth, async (req, res) => {
       if (!versions.length) {
         return res.status(404).send('No versions found.');
       }
-
-      // return json 
-        if (req.accepts('json')) {
-            return res.json({ versions });
-        }
-        if (req.accepts('html')) {
-            return res.render('versions', { versions });
-        }
+        
+      return res.json({ versions });
     } catch (err) {
       res.status(500).send('Error fetching file versions.');
     }

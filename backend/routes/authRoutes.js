@@ -41,10 +41,7 @@ router.post('/signup', async(req, res)=>{
 
     res.cookie("uid", token);
 
-    if(req.accepts(html)){
-        res.redirect('/api/folders')
-    }
-    return res.status(201).json({message:'User successfully registerd'});
+    return res.status(201).json({message:'User successfully registered'});
 })
 
 router.post('/login', async(req, res)=>{
@@ -74,9 +71,6 @@ router.post('/login', async(req, res)=>{
 
     res.cookie("uid", token);
 
-    if (req.accepts('html')) {
-        return res.redirect('/api/folders');
-    }
     return res.status(200).json({message:'User successfully logged in'});
 });
 
