@@ -10,7 +10,8 @@ const ProtectedRoute = ({ children }) => {
     const checkAuth = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/api/auth/me`, {
-            credentials: 'include' // Ensure cookies are sent with the request
+          method: 'GET',
+          credentials: 'include' // Ensure cookies are sent with the request
         });
         if (res.ok) {
           setIsAuth(true);
