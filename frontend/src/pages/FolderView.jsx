@@ -124,7 +124,7 @@ useEffect(() => {
             formData.append('file', fileInput.files[0]);
             formData.append('folderId', folderId);
             try {
-              const res = await fetch('/api/files/upload', {
+              const res = await fetch(`${API_BASE_URL}/api/files/upload`, {
                 method: 'POST',
                 body: formData,
                 credentials: 'include' // Include cookies for session management
