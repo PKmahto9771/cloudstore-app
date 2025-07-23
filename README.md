@@ -111,7 +111,7 @@ npm install
 
 ### 3. Configure Environment
 ```bash
-VITE_API_BASE_URL=http://localhost:5000/api
+VITE_API_BASE_URL=http://localhost:5000
 ```
 
 ### 4. Start Development Server

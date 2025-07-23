@@ -30,7 +30,7 @@ Folder.syncIndexes().then(() => {
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5000'],  // Your frontend URL
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5000', 'https://cloudstore-1hex.onrender.com'],  // Your frontend URL
   credentials: true                  // Allow sending cookies
 }));
 
@@ -49,7 +49,7 @@ app.use(methodOverride('_method'));
 console.log('✅ Middleware configured');
 
 app.get('/', (req, res)=>{
-    res.render('index');
+    res.send('Server is running');
 })
 
 app.use('/api/auth', authRoutes);
