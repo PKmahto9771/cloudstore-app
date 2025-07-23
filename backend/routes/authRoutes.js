@@ -39,7 +39,12 @@ router.post('/signup', async(req, res)=>{
     process.env.JWT_SECRET, 
     { expiresIn: '7d' })
 
-    res.cookie("uid", token);
+    res.cookie("uid", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        maxAge: 7 * 24 * 60 * 60 * 1000
+    });
 
     return res.status(201).json({message:'User successfully registered'});
 })
@@ -69,7 +74,12 @@ router.post('/login', async(req, res)=>{
     process.env.JWT_SECRET, 
     { expiresIn: '7d' })
 
-    res.cookie("uid", token);
+    res.cookie("uid", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        maxAge: 7 * 24 * 60 * 60 * 1000
+    });
 
     return res.status(200).json({message:'User successfully logged in'});
 });
