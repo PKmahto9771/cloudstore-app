@@ -1,0 +1,50 @@
+.container {
+  padding: 1em;
+  background: #fff
+}
+
+.breadcrumb-nav {
+  font-size: 1.05em;
+  color: #555;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.responsive-row {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.section {
+  flex: 1;
+  min-width: 260px;
+  max-width: 500px;
+}
+
+.input-full {
+  width: 100%;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.button-full {
+  width: 100%;
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+.list {
+  padding-left: 18px;
+  list-style: none;
+}
+
+.list-item {
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+
