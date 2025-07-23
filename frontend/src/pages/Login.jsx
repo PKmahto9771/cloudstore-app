@@ -19,6 +19,16 @@ function Login() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
       });
+      
+      console.log("Status:", res.status);
+
+      const data = await res.json().catch(() => null);
+      console.log("Response body:", data);
+
+      if (!res.ok) {
+        console.error("Login failed:", data?.message || "Unknown error");
+      }
+
       if (res.ok) {
         setSuccess("Login successful!");
         setTimeout(() => {
