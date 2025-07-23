@@ -69,7 +69,8 @@ function FolderView() {
               const res = await fetch('/api/folders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, parentId })
+                body: JSON.stringify({ name, parentId }),
+                credentials: 'include' // Include cookies for session management
               });
               const contentType = res.headers.get('content-type');
               if (contentType && contentType.includes('application/json')) {

@@ -23,6 +23,7 @@ function Upload() {
       const res = await fetch(`${API_BASE_URL}/api/files/upload`, {
         method: "POST",
         body: formData,
+        credentials: "include", // Include cookies for session management
       });
       if (res.ok) {
         setSuccess("File uploaded successfully!");

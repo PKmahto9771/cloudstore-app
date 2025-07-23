@@ -10,7 +10,13 @@ function Download() {
     e.preventDefault();
     setError("");
     try {
-      const res = await fetch(`${API_BASE_URL}/api/files/download?key=${encodeURIComponent(key)}`);
+      const res = await fetch(`${API_BASE_URL}/api/files/download?key=${encodeURIComponent(key)}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include", // Include cookies for session management
+        }
+    );
       if (res.ok) {
         const blob = await res.blob();
         const url = window.URL.createObjectURL(blob);
