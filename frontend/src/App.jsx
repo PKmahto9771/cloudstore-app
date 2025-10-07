@@ -56,16 +56,9 @@ function Home() {
       </ul>
 
       <div style={{ marginBottom: '1rem' }}>
-        <p style={{ marginBottom: '0.5rem' }}>To start using the app, please log in:</p>
-        <Link to="/login">
-          <button>Login</button>
-        </Link>
-      </div>
-
-      <div>
-        <p style={{ marginBottom: '0.5rem' }}>Or explore the app directly:</p>
+        <p style={{ marginBottom: '0.5rem' }}>To start using the app, please click 'Explore App':</p>
         <Link to="/folders">
-          <button>Go to the App</button>
+          <button>Explore App</button>
         </Link>
       </div>
     </div>
