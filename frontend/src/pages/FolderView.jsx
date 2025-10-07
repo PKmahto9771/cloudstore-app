@@ -76,7 +76,7 @@ useEffect(() => {
             const name = form.name.value;
             const parentId = form.parentId.value;
             try {
-              const res = await fetch('/api/folders', {
+              const res = await fetch(`${API_BASE_URL}/api/folders`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, parentId }),
